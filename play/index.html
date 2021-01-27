@@ -4,12 +4,39 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>OreCraft - Play</title>
-	<link href="style.css" type="text/stylesheet">
+	<link href="../style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<noscript>You need to enable JavaScript to run this app.</noscript>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.52.0/phaser.min.js"></script>
-	<script src="script.js">
-	</script>
+	<div style="text-align: center; background-color: #1E1E1E;">
+		<img id="logo" src="../static/logo.png" alt="OreCraft Logo">
+	</div>
+	<div id="top">
+		<h3 class="header">OreCraft</h3>
+		<button class="navbutton" onclick="window.location.href = '../play/'">Play</button>
+		<button class="navbutton" onclick="window.location.href = 'https://github.com/DobbyK/Browser-Craft'">Contribute</button>
+	</div>
+	<div style="text-align: center;">
+		<h2>Sign In<h2>
+		<hr>
+		<form>
+			<label>Username:</label>
+			<input type:"text" id:"username">
+			<label>Password:</label>
+			<input type:"text" id:"password">
+			<button type:"submit" action: "Submit">Submit</button>
+			<script src 
+		</form>
+		<h2>Sign Up<h2>
+		<hr>
+		<form action="signup.js">
+			<label>Email:</label>
+			<input type:"text" id:"email">
+			<label>Username:</label>
+			<input type:"text" id:"username">
+			<label>Password:</label>
+			<input type:"text" id:"password">
+			<button type:"submit" action: "Submit">Submit</button>
+		</form>
+	</div>
 </body>
 </html>
