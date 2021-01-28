@@ -40,3 +40,8 @@ body {
 	border: 0px;
 	display: inline;
 }
+
+#playbutton {
+	width: 10%;
+	padding: 2.5%;
+}
