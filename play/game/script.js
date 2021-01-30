@@ -258,21 +258,15 @@ function create (){
 			tilet = tile.index;
 			playertile = map.worldToTileXY(player.x, player.y);
 			console.log(tile.x, playertile.x)
+			console.log(tile.y, playertile.y)
+			if (tile.y != playertile.y + 1 && tile.x != playertile.x + 1) {
+				tilet = 'Null';
+			} 
+			if (tile.y != playertile.y + 1 && tile.x != playertile.x - 1) {
+				tilet = 'Null';
+			} 
+
 			if (tile == -1) {
-				objectToPlace = 'Null';
-				switch(objectToPlace) {
-					case 'Null':
-						break;
-				}
-			} 
-			if (tile.x !== playertile.x) {
-				objectToPlace = 'Null';
-				switch(objectToPlace) {
-					case 'Null':
-						break;
-				}
-			} 
-			if (tile.y !== playertile.y + 1) {
 				objectToPlace = 'Null';
 				switch(objectToPlace) {
 					case 'Null':
