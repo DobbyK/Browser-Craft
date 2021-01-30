@@ -270,7 +270,7 @@ function create (){
 			console.log(tile.y, playertile.y)
 			if (tile.y != playertile.y + 1 && tile.x != playertile.x + 1 && tilet != 10) {
 				tilet = 'Null';
-				if (tilet.x == playertile.x + 1) {
+				if (tile.x == playertile.x + 1 && tile.y == playertile.y - 1) {
 					tile = map.getTileAt(pointerTileX, pointerTileY);
 					tilet = tile.index;
 				}
