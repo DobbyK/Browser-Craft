@@ -36,6 +36,7 @@ function create (){
 	grassHeld = false;
 	click = 1;
 	hp = 100;
+	grasschest = 0;
 	// World Gen
 	world = [
 		[-1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,-1],
@@ -236,10 +237,13 @@ function create (){
     });
 	this.input.keyboard.on('keydown-E', function (event){
 		if (click == 1) {
-			console.log('Click 1');
+			console.log('Click 2');
 			click = 2;
 		} else if (click == 2) {
-			console.log('Click 2');
+			console.log('Click 3');
+			click = 3;
+		} else if (click == 3) {
+			console.log('Click 1');
 			click = 1;
 		}
 	});
@@ -265,7 +269,6 @@ function create (){
 			if (tile.y != playertile.y + 1 && tile.x != playertile.x - 1) {
 				tilet = 'Null';
 			} 
-
 			if (tile == -1) {
 				objectToPlace = 'Null';
 				switch(objectToPlace) {
@@ -300,9 +303,29 @@ function create (){
 						}
 					case 10:
 						if (click == 1) {
-							alert('This is a chest!');
+							if (grass > 0) {
+								grasschest += grass;
+								grass = 0;
+							} else {
+								alert('You have no grass!');
+							}
 						} else if (click == 2) {
+							if (grass > 20) {
+								alert('You can not pick up more grass');
+							} else {
+								if (grasschest > 20) {
+									grass += 21 - grass;
+									grasschest -= 21 - grass;
+								} else {
+									grass += grasschest - grass;
+									grasschest -= grass;
+								}
+							}
+						} else if (click == 3 && grasschest < grass) {
 							map.putTileAt(4, pointerTileX, pointerTileY);
+							grass += grasschest;
+						} else {
+							alert('Can not destroy that!');
 						}
 				}
 			}
