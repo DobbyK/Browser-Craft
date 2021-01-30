@@ -22,6 +22,7 @@ function preload (){
 	this.load.spritesheet('player', '../../static/player_sprite.png', { frameWidth: 230, frameHeight: 300 });
 	this.load.spritesheet("inventory", "../../static/inventory.png", { frameWidth: 96, frameHeight: 96 });
 	this.load.image("map-tiles", "../../static/tileset.png");
+	this.load.spritesheet('hpbar', '../../static/hpbar.png', {frameWidth: 64, frameHeight: 16});
 }
 
 function create (){
@@ -34,6 +35,7 @@ function create (){
 	objectToPlace = 'grass';
 	grassHeld = false;
 	click = 1;
+	hp = 100;
 	// World Gen
 	world = [
 		[-1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,-1],
@@ -81,7 +83,15 @@ function create (){
 	grassint = this.add.text(player.x, player.y - 250, grass);
 	dirtint = this.add.text(player.x + 96, player.y - 250, dirt);
 	stoneint = this.add.text(player.x +192, player.y - 250, stone);
+	hpbar = this.add.sprite(player.x, player.y + 100, 'hpbar');
+	hpbar.setScale(2);
 	// Animations and Some Inputing
+	hpbar.anims.create({
+        key: '100%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [0, 0]} ),
+        frameRate: 6,
+        repeat: -1
+    });
 	player.anims.create({
         key: 'walk-right',
         frames: this.anims.generateFrameNumbers('player', {frames: [2, 1, 0, 1]} ),
@@ -308,6 +318,9 @@ function update (){
 	stoneint.x = player.x + 192;
 	stoneint.y = player.y + 250;
 	stoneint.text = stone;
+	hpbar.x = player.x;
+	hpbar.y = player.y - 150; 
+	hp -= 0.5;
 	if (grass > 0) {
 		inventory1.anims.play('grass', true);
 	} else {
@@ -323,4 +336,10 @@ function update (){
 	} else {
 		inventory3.anims.play('nothing', true);
 	} 
+	if (hp == 100) {
+		hpbar.anims.play('100%', true);
+	} else if (hp == 50) {
+		player.destroy();
+		alert('DAH DAH da DAH DDAH DAHHHHHHHHHH Your dead')
+	}
 }
