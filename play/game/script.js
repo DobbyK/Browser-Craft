@@ -92,6 +92,60 @@ function create (){
         frameRate: 6,
         repeat: -1
     });
+	hpbar.anims.create({
+        key: '90%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [1, 1]} ),
+        frameRate: 6,
+        repeat: -1
+    });
+	hpbar.anims.create({
+        key: '80%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [2, 2]} ),
+        frameRate: 6,
+        repeat: -1
+    });
+	hpbar.anims.create({
+        key: '70%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [3, 3]} ),
+        frameRate: 6,
+        repeat: -1
+    });
+	hpbar.anims.create({
+        key: '60%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [4, 4]} ),
+        frameRate: 6,
+        repeat: -1
+    });
+	hpbar.anims.create({
+        key: '50%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [5, 5]} ),
+        frameRate: 6,
+        repeat: -1
+    });
+	hpbar.anims.create({
+        key: '40%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [6, 6]} ),
+        frameRate: 6,
+        repeat: -1
+    });
+	hpbar.anims.create({
+        key: '30%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [7, 7]} ),
+        frameRate: 6,
+        repeat: -1
+    });
+	hpbar.anims.create({
+        key: '20%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [8, 8]} ),
+        frameRate: 6,
+        repeat: -1
+    });
+	hpbar.anims.create({
+        key: '10%',
+        frames: this.anims.generateFrameNumbers('hpbar', {frames: [9, 9]} ),
+        frameRate: 6,
+        repeat: -1
+    });
 	player.anims.create({
         key: 'walk-right',
         frames: this.anims.generateFrameNumbers('player', {frames: [2, 1, 0, 1]} ),
@@ -319,8 +373,7 @@ function update (){
 	stoneint.y = player.y + 250;
 	stoneint.text = stone;
 	hpbar.x = player.x;
-	hpbar.y = player.y - 150; 
-	hp -= 0.5;
+	hpbar.y = player.y - 150;		
 	if (grass > 0) {
 		inventory1.anims.play('grass', true);
 	} else {
@@ -338,8 +391,37 @@ function update (){
 	} 
 	if (hp == 100) {
 		hpbar.anims.play('100%', true);
-	} else if (hp == 50) {
+	} else if (hp > 89) {
+		hpbar.anims.play('90%', true);
+	} else if (hp > 79) {
+		hpbar.anims.play('80%', true);
+	} else if (hp > 69) {
+		hpbar.anims.play('70%', true);
+	} else if (hp > 59) {
+		hpbar.anims.play('60%', true);
+	} else if (hp > 49) {
+		hpbar.anims.play('50%', true);
+	} else if (hp > 39) {
+		hpbar.anims.play('40%', true);
+	} else if (hp > 39) {
+		hpbar.anims.play('40%', true);
+	} else if (hp > 39) {
+		hpbar.anims.play('40%', true);
+	} else if (hp > 29) {
+		hpbar.anims.play('30%', true);
+	} else if (hp > 19) {
+		hpbar.anims.play('20%', true);
+	} else if (hp > 9) {
+		hpbar.anims.play('20%', true);
+	} else if (hp == 0) {
 		player.destroy();
-		alert('DAH DAH da DAH DDAH DAHHHHHHHHHH Your dead')
+		hpbar.destroy();
+		inventory1.destroy();
+		inventory2.destroy();
+		inventory3.destroy();
+		grassint.destroy();
+		dirtint.destroy();
+		stoneint.destroy();
+		alert('You are dead');
 	}
 }
