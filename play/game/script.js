@@ -208,7 +208,7 @@ function create (){
 						break;
 				}
 			} 
-			if (tile.y == playertile.y) {
+			if (tile.y !== playertile.y + 1) {
 				objectToPlace = 'Null';
 				switch(objectToPlace) {
 					case 'Null':
