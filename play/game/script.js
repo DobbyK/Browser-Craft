@@ -238,12 +238,15 @@ function create (){
 	this.input.keyboard.on('keydown-E', function (event){
 		if (click == 1) {
 			console.log('Click 2');
+			alert('Getting From Chests')
 			click = 2;
 		} else if (click == 2) {
 			console.log('Click 3');
+			alert('Destroying Chests')
 			click = 3;
 		} else if (click == 3) {
 			console.log('Click 1');
+			alert('Depositing To Chests')
 			click = 1;
 		}
 	});
