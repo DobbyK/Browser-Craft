@@ -240,15 +240,15 @@ function create (){
 	this.input.keyboard.on('keydown-E', function (event){
 		if (click == 1) {
 			console.log('Click 2');
-			alert('Getting From Chests')
+			alert('Getting From Chests');
 			click = 2;
 		} else if (click == 2) {
 			console.log('Click 3');
-			alert('Destroying Chests')
+			alert('Destroying Chests');
 			click = 3;
 		} else if (click == 3) {
 			console.log('Click 1');
-			alert('Depositing To Chests')
+			alert('Depositing To Chests');
 			click = 1;
 		}
 	});
@@ -268,11 +268,12 @@ function create (){
 			playertile = map.worldToTileXY(player.x, player.y);
 			console.log(tile.x, playertile.x)
 			console.log(tile.y, playertile.y)
-			if (tile.y != playertile.y + 1 && tile.x != playertile.x + 1) {
+			if (tile.y != playertile.y + 1 && tile.x != playertile.x + 1 && tilet != 10) {
 				tilet = 'Null';
-			} 
-			if (tile.y != playertile.y + 1 && tile.x != playertile.x - 1) {
-				tilet = 'Null';
+				if (tilet.x == playertile.x + 1) {
+					tile = map.getTileAt(pointerTileX, pointerTileY);
+					tilet = tile.index;
+				}
 			} 
 			if (tile == -1) {
 				objectToPlace = 'Null';
