@@ -27,6 +27,8 @@ function preload (){
 
 function create (){
 	// Variables
+	centerX=game.config.width/2;
+	centerY=game.config.height/2;
 	grass = 0;
 	dirt = 0;
 	stone = 0;
@@ -70,7 +72,7 @@ function create (){
 	this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 	map.setCollision([-1, 6, 7, 1, 2]);
 	cursors = this.input.keyboard.createCursorKeys();
-	player = this.physics.add.sprite(500, 300, 'player');
+	player = this.physics.add.sprite(centerX, centerY, 'player');
 	player.setScrollFactor(1);
 	this.physics.add.collider(player, layer);
 	player.setScale(0.7)
