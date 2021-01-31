@@ -27,8 +27,6 @@ function preload (){
 
 function create (){
 	// Variables
-	centerX=game.config.width/2;
-	centerY=game.config.height/2;
 	grass = 0;
 	dirt = 0;
 	stone = 0;
@@ -72,7 +70,7 @@ function create (){
 	this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 	map.setCollision([-1, 6, 7, 1, 2]);
 	cursors = this.input.keyboard.createCursorKeys();
-	player = this.physics.add.sprite(centerX, centerY, 'player');
+	player = this.physics.add.sprite(map.widthInPixels/2, map.heightInPixels/2 - 150, 'player');
 	player.setScrollFactor(1);
 	this.physics.add.collider(player, layer);
 	player.setScale(0.7)
@@ -268,13 +266,18 @@ function create (){
 			playertile = map.worldToTileXY(player.x, player.y);
 			console.log(tile.x, playertile.x)
 			console.log(tile.y, playertile.y)
-			if (tile.y != playertile.y + 1 && tile.x != playertile.x + 1 && tilet != 10) {
+			if (tile.x > playertile.x + 1) {
 				tilet = 'Null';
-				if (tile.x == playertile.x + 1 && tile.y == playertile.y - 1) {
-					tile = map.getTileAt(pointerTileX, pointerTileY);
-					tilet = tile.index;
-				}
 			} 
+			if (tile.x < playertile.x - 1) {
+				tilet = 'Null';
+			}
+			if (tile.y > playertile.y + 1)  {
+				tilet = 'Null';
+			} 
+			if (tile.y < playertile.y - 1) {
+				tilet = 'Null';
+			}
 			if (tile == -1) {
 				objectToPlace = 'Null';
 				switch(objectToPlace) {

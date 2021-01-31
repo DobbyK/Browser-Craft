@@ -45,3 +45,5 @@ body {
 	width: 10%;
 	padding: 2.5%;
 }
+
+canvas {   display : block;   margin : auto;}
