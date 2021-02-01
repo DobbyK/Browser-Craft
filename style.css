@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 
 html {
 	height: 100%;
@@ -46,4 +48,8 @@ body {
 	padding: 2.5%;
 }
 
-canvas {   display : block;   margin : auto;}
+canvas {   
+	display: block;
+	margin: auto;
+	font-family: 'VT323', monospace;	
+}
