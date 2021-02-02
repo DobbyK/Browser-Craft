@@ -1,3 +1,4 @@
+
 var config = {
 	type: Phaser.AUTO,
 	width: 1000,
@@ -5,7 +6,7 @@ var config = {
 	physics: {
 		default: 'arcade',
 		arcade: {
-			gravity: { y: 300 },
+			gravity: { y: 350 },
 			debug: false
 		}
 	},
@@ -31,6 +32,7 @@ function create() {
 	grass = 0;
 	dirt = 0;
 	stone = 0;
+	wood = 0;
 	lastdirection = 'right';
 	alert('Arrow Keys to move. Press 1-4 to switch items, right click to remove and left click to add. And Press I to view inventory.')
 	objectToPlace = 'grass';
@@ -99,6 +101,12 @@ function create() {
 	item3.anims.create({
 		key: 'stone',
 		frames: this.anims.generateFrameNumbers('mini-tiles', { frames: [5, 5] }),
+		frameRate: 6,
+		repeat: -1
+	});
+	item3.anims.create({
+		key: 'wood',
+		frames: this.anims.generateFrameNumbers('mini-tiles', { frames: [4, 4] }),
 		frameRate: 6,
 		repeat: -1
 	});
@@ -188,15 +196,20 @@ function create() {
 	});
 	player.anims.play('stand-right', true);
 	this.input.keyboard.on('keydown-ONE', function (event) {
+		if (invrow == 1) {
+			objectToPlace = 'stone';
+			console.log(objectToPlace);
+		} else if (invrow == 2) {
+			objectToPlace = 'wood';
+			console.log(objectToPlace);
+		}
+	});
+	this.input.keyboard.on('keydown-TWO', function (event) {
 		objectToPlace = 'grass';
 		console.log(objectToPlace);
 	});
-	this.input.keyboard.on('keydown-TWO', function (event) {
+	this.input.keyboard.on('keydown-THREE', function (event) {
 		objectToPlace = 'dirt';
-		console.log(objectToPlace);
-	});
-	this.input.keyboard.on('keydown-FOUR', function (event) {
-		objectToPlace = 'stone';
 		console.log(objectToPlace);
 	});
 	this.input.keyboard.on('keydown-W', function (event) {
@@ -227,6 +240,13 @@ function create() {
 			console.log('Click 1');
 			alert('Depositing To Chests');
 			click = 1;
+		}
+	});
+	this.input.keyboard.on('keydown-R', function (event) {
+		if (invrow == 3) {
+			invrow = 1;
+		} else {
+			invrow += 1;
 		}
 	});
 	this.input.keyboard.on('keyup-A', function (event) {
@@ -289,6 +309,14 @@ function create() {
 							map.putTileAt(3, pointerTileX, pointerTileY);
 							break;
 						}
+					case 10:
+						if (wood > 20) {
+							break;
+						} else {
+							wood += 1;
+							map.putTileAt(3, pointerTileX, pointerTileY);
+							break;
+						}
 					case 5:
 						if (click == 1) {
 							if (grass > 0) {
@@ -325,13 +353,27 @@ function create() {
 				}
 			}
 		} else {
-			tile = map.getTileAt(pointerTileX, pointerTileY).index;
+			tile = map.getTileAt(pointerTileX, pointerTileY);
+			tilet = tile.index;
+			playertile = map.worldToTileXY(player.x, player.y);
+			if (tile.x > playertile.x + 1) {
+				tilet = 'Null';
+			}
+			if (tile.x < playertile.x - 1) {
+				tilet = 'Null';
+			}
+			if (tile.y > playertile.y + 1) {
+				tilet = 'Null';
+			}
+			if (tile.y < playertile.y - 1) {
+				tilet = 'Null';
+			}
 			if (tile == -1) {
 				objectToPlace = 'Null';
 			}
 			switch (objectToPlace) {
 				case 'grass':
-					if (tile !== 3) {
+					if (tilet !== 3) {
 						break;
 					}
 					if (grass > 0) {
@@ -340,7 +382,7 @@ function create() {
 					}
 					break;
 				case 'dirt':
-					if (tile !== 3) {
+					if (tilet !== 3) {
 						break;
 					}
 					if (dirt > 0) {
@@ -349,12 +391,21 @@ function create() {
 					}
 					break;
 				case 'stone':
-					if (tile !== 3) {
+					if (tilet !== 3) {
 						break;
 					}
 					if (stone > 0) {
 						map.putTileAt(2, pointerTileX, pointerTileY);
 						stone += -1;
+					}
+					break;
+				case 'wood':
+					if (tilet !== 3) {
+						break;
+					}
+					if (wood > 0) {
+						map.putTileAt(10, pointerTileX, pointerTileY);
+						wood += -1;
 					}
 					break;
 				case 'Null':
@@ -424,8 +475,20 @@ function update() {
 		alert('You are dead');
 	}
 	if (invrow == 1) {
+		item1.setVisible(true);
+		item2.setVisible(true);
 		item1.anims.play('grass', true);
 		item2.anims.play('dirt', true);
 		item3.anims.play('stone', true);
+		item3int.text = stone;
+		item1int.setVisible(true);
+		item3int.setVisible(true);
+	} else if (invrow == 2) {
+		item1.setVisible(false);
+		item2.setVisible(false);
+		item3.anims.play('wood', true);
+		item3int.text = wood;
+		item1int.setVisible(false);
+		item3int.setVisible(false);
 	}
 }
