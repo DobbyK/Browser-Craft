@@ -368,6 +368,9 @@ function create() {
 			if (tile.y < playertile.y - 1) {
 				tilet = 'Null';
 			}
+			if (tile.y == playertile.y && tile.x == playertile.x) {
+				tilet = 'Null';
+			}
 			if (tile == -1) {
 				objectToPlace = 'Null';
 			}
@@ -480,14 +483,14 @@ function update() {
 		item1.anims.play('grass', true);
 		item2.anims.play('dirt', true);
 		item3.anims.play('stone', true);
-		item3int.text = stone;
+		item2int.text = stone;
 		item1int.setVisible(true);
 		item3int.setVisible(true);
 	} else if (invrow == 2) {
 		item1.setVisible(false);
 		item2.setVisible(false);
 		item3.anims.play('wood', true);
-		item3int.text = wood;
+		item2int.text = wood;
 		item1int.setVisible(false);
 		item3int.setVisible(false);
 	}
