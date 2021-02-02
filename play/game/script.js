@@ -51,7 +51,7 @@ function create() {
 		[-1, 3, 3, 3, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, -1],
 		[-1, 7, 3, 3, 3, 3, 7, 3, 3, 3, 3, 7, 3, 3, 3, 7, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, -1],
 		[-1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, -1],
-		[-1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 3, 5, 3, 9, 3, 3, 10, 3, 3, 3, 9, 3, 3, 3, 3, -1],
+		[-1, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 3, 5, 3, 9, 3, 3, 10, 3, 3, 3, 9, 3, 3, 3, 3, -1],
 		[-1, 0, 0, 11, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
 		[-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1],
 		[-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1],
@@ -87,6 +87,12 @@ function create() {
 	item2int = this.add.text(player.x + 160, player.y + 200, dirt);
 	item3int = this.add.text(player.x - 160, player.y + 200, stone);
 	chest = this.add.sprite(player.x, player.y, 'chest');
+	chestitem1 = this.add.sprite(player.x, player.y, 'mini-tiles');
+	chestitem2 = this.add.sprite(player.x - 100, player.y, 'mini-tiles');
+	chestitem3 = this.add.sprite(player.x + 100, player.y, 'mini-tiles');
+	chestitem1.setVisible(false);
+	chestitem2.setVisible(false);
+	chestitem3.setVisible(false);
 	chest.setVisible(false);
 	hpbar.setScale(2);
 	item1.setScale(0.5);
@@ -444,6 +450,12 @@ function update() {
 	item3int.text = dirt;
 	chest.x = player.x;
 	chest.y = player.y;
+	chestitem1.x = player.x - 55;
+	chestitem2.x = player.x - 175;
+	chestitem3.x = player.x + 55;
+	chestitem1.y = player.y - 55;
+	chestitem2.y = player.y - 55;
+	chestitem3.y = player.y- 55;
 	if (hp == 100) {
 		hpbar.anims.play('100%', true);
 	} else if (hp > 89) {
@@ -482,6 +494,9 @@ function update() {
 	if (inv == true) {
 		chest.setVisible(false);
 		movementOn = true;
+		chestitem1.setVisible(false);
+		chestitem2.setVisible(false);
+		chestitem3.setVisible(false);
 		if (invrow == 1) {
 			item1.setVisible(true);
 			item2.setVisible(true);
@@ -501,6 +516,7 @@ function update() {
 		}
 	} else if (inv == false) {
 		movementOn = false;
+		player.setVelocityX(0);
 		if (invrow == 1) {
 			item1.setVisible(true);
 			item2.setVisible(true);
@@ -519,5 +535,8 @@ function update() {
 			item3int.setVisible(false);
 		}
 		chest.setVisible(true);
+		chestitem1.setVisible(true);
+		chestitem2.setVisible(true);
+		chestitem3.setVisible(true);
 	}
 }
