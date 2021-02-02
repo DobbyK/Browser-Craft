@@ -1,4 +1,3 @@
-
 var config = {
 	type: Phaser.AUTO,
 	width: 1000,
@@ -46,7 +45,7 @@ function create() {
 		[-1, 3, 3, 3, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, -1],
 		[-1, 7, 3, 3, 3, 3, 7, 3, 3, 3, 3, 7, 3, 3, 3, 7, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, -1],
 		[-1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, -1],
-		[-1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 3, 5, 3, 3, 3, 3, 10, 3, 3, 3, 3, 3, 3, 3, 3, -1],
+		[-1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 10, 3, 5, 3, 9, 3, 3, 10, 3, 3, 3, 9, 3, 3, 3, 3, -1],
 		[-1, 0, 0, 11, 11, 11, 11, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
 		[-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1],
 		[-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1],
@@ -67,7 +66,7 @@ function create() {
 	player = this.physics.add.sprite(500, 400, 'player');
 	player.setScrollFactor(1);
 	this.physics.add.collider(player, layer);
-	player.setScale(0.7)
+	player.setScale(0.65)
 	player.setBounce(0.2);
 	player.setCollideWorldBounds(false);
 	player.body.setGravityY(0);
@@ -426,7 +425,7 @@ function update() {
 	inventory.x = player.x;
 	inventory.y = player.y + 250;
 	hpbar.x = player.x;
-	hpbar.y = player.y - 150;
+	hpbar.y = player.y - 200;
 	item1.x = player.x - 1;
 	item1.y = player.y + 250;
 	item2.x = player.x + 160;
