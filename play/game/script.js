@@ -61,7 +61,7 @@ function create() {
 	tiles = map.addTilesetImage("map-tiles");
 	layer = map.createLayer(0, tiles, 0, 0);
 	this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-	map.setCollision([-1,0, 1, 2, 10]);
+	map.setCollision([-1,0, 1, 2, 9, 10]);
 	cursors = this.input.keyboard.createCursorKeys();
 	player = this.physics.add.sprite(500, 400, 'player');
 	player.setScrollFactor(1);
@@ -301,6 +301,14 @@ function create() {
 							break;
 						}
 					case 2:
+						if (stone > 20) {
+							break;
+						} else {
+							stone += 1;
+							map.putTileAt(3, pointerTileX, pointerTileY);
+							break;
+						}
+					case 9:
 						if (stone > 20) {
 							break;
 						} else {
