@@ -24,6 +24,7 @@ function preload() {
 	this.load.image("map-tiles", "../../static/tileset1.png");
 	this.load.spritesheet('hpbar', '../../static/hpbar.png', { frameWidth: 64, frameHeight: 16 });
 	this.load.spritesheet('mini-tiles', '../../static/mini_inventory_tileset.png', { frameWidth: 80, frameHeigh: 80});
+	this.load.image("chest", "../../static/chest.png");
 }
 
 function create() {
@@ -38,8 +39,13 @@ function create() {
 	grassHeld = false;
 	click = 1;
 	hp = 100;
-	grasschest = 0;
+	grass1 = 0;
+	dirt1 = 0;
+	stone1 = 0;
 	invrow = 1;
+	inv = true;
+	chestrow = 1;
+	movementOn = true;
 	// World Gen
 	world = [
 		[-1, 3, 3, 3, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, -1],
@@ -80,6 +86,8 @@ function create() {
 	item1int = this.add.text(player.x, player.y + 200, grass);
 	item2int = this.add.text(player.x + 160, player.y + 200, dirt);
 	item3int = this.add.text(player.x - 160, player.y + 200, stone);
+	chest = this.add.sprite(player.x, player.y, 'chest');
+	chest.setVisible(false);
 	hpbar.setScale(2);
 	item1.setScale(0.5);
 	item2.setScale(0.5);
@@ -195,12 +203,18 @@ function create() {
 	});
 	player.anims.play('stand-right', true);
 	this.input.keyboard.on('keydown-ONE', function (event) {
-		if (invrow == 1) {
-			objectToPlace = 'stone';
-			console.log(objectToPlace);
-		} else if (invrow == 2) {
-			objectToPlace = 'wood';
-			console.log(objectToPlace);
+		if (inv == true) {
+			if (invrow == 1) {
+				objectToPlace = 'stone';
+				console.log(objectToPlace);
+			} else if (invrow == 2) {
+				objectToPlace = 'wood';
+				console.log(objectToPlace);
+			}
+		} else if (inv == false) {
+			if (chestrow == 1) {
+				
+			}
 		}
 	});
 	this.input.keyboard.on('keydown-TWO', function (event) {
@@ -212,40 +226,40 @@ function create() {
 		console.log(objectToPlace);
 	});
 	this.input.keyboard.on('keydown-W', function (event) {
-		if (player.body.blocked.down) {
-			player.body.setVelocityY(-350);
+		if (movementOn == true) {
+			if (player.body.blocked.down) {
+				player.body.setVelocityY(-350);
+			}
 		}
 	});
 	this.input.keyboard.on('keydown-A', function (event) {
-		player.setVelocityX(-320);
-		player.anims.play('walk-left', true);
-		lastdirection = 'left';
-	});
-	this.input.keyboard.on('keydown-D', function (event) {
-		player.setVelocityX(320);
-		player.anims.play('walk-right', true);
-		lastdirection = 'right';
-	});
-	this.input.keyboard.on('keydown-E', function (event) {
-		if (click == 1) {
-			console.log('Click 2');
-			alert('Getting From Chests');
-			click = 2;
-		} else if (click == 2) {
-			console.log('Click 3');
-			alert('Destroying Chests');
-			click = 3;
-		} else if (click == 3) {
-			console.log('Click 1');
-			alert('Depositing To Chests');
-			click = 1;
+		if (movementOn == true) {
+			player.setVelocityX(-320);
+			player.anims.play('walk-left', true);
+			lastdirection = 'left';
 		}
 	});
-	this.input.keyboard.on('keydown-R', function (event) {
+	this.input.keyboard.on('keydown-D', function (event) {
+		if (movementOn == true) {
+			player.setVelocityX(320);
+			player.anims.play('walk-right', true);
+			lastdirection = 'right';
+		}
+	});
+	this.input.keyboard.on('keydown-E', function (event) {
 		if (invrow == 3) {
 			invrow = 1;
 		} else {
 			invrow += 1;
+		}
+	});
+	this.input.keyboard.on('keydown-R', function (event) {
+		if (inv == false) {
+			if (chestrow == 2) {
+				chestrow = 1;
+			} else {
+				chestrow += 1;
+			}
 		}
 	});
 	this.input.keyboard.on('keyup-A', function (event) {
@@ -326,37 +340,16 @@ function create() {
 						}
 					case 5:
 						if (click == 1) {
-							if (grass > 0) {
-								grasschest += grass;
-								grass = 0;
-								break;
-							} else {
-								alert('You have no grass!');
-								break;
-							}
-						} else if (click == 2) {
-							if (grass > 20) {
-								alert('You can not pick up more grass');
-								break;
-							} else {
-								if (grasschest > 20) {
-									grass += 21 - grass;
-									grasschest -= 21 - grass;
-									break;
-								} else {
-									grass += grasschest - grass;
-									grasschest -= grass;
-									break;
-								}
-							}
-						} else if (click == 3 && grasschest < grass) {
-							map.putTileAt(3, pointerTileX, pointerTileY);
-							grass += grasschest;
+							inv = false;
+							click = 2;
 							break;
 						} else {
-							alert('Can not destroy that!');
+							inv = true;
+							click = 1;
 							break;
 						}
+						
+						
 				}
 			}
 		} else {
@@ -449,6 +442,8 @@ function update() {
 	item1int.text = grass;
 	item2int.text = stone;
 	item3int.text = dirt;
+	chest.x = player.x;
+	chest.y = player.y;
 	if (hp == 100) {
 		hpbar.anims.play('100%', true);
 	} else if (hp > 89) {
@@ -484,21 +479,45 @@ function update() {
 		stoneint.destroy();
 		alert('You are dead');
 	}
-	if (invrow == 1) {
-		item1.setVisible(true);
-		item2.setVisible(true);
-		item1.anims.play('grass', true);
-		item2.anims.play('dirt', true);
-		item3.anims.play('stone', true);
-		item2int.text = stone;
-		item1int.setVisible(true);
-		item3int.setVisible(true);
-	} else if (invrow == 2) {
-		item1.setVisible(false);
-		item2.setVisible(false);
-		item3.anims.play('wood', true);
-		item2int.text = wood;
-		item1int.setVisible(false);
-		item3int.setVisible(false);
+	if (inv == true) {
+		chest.setVisible(false);
+		movementOn = true;
+		if (invrow == 1) {
+			item1.setVisible(true);
+			item2.setVisible(true);
+			item1.anims.play('grass', true);
+			item2.anims.play('dirt', true);
+			item3.anims.play('stone', true);
+			item2int.text = stone;
+			item1int.setVisible(true);
+			item3int.setVisible(true);
+		} else if (invrow == 2) {
+			item1.setVisible(false);
+			item2.setVisible(false);
+			item3.anims.play('wood', true);
+			item2int.text = wood;
+			item1int.setVisible(false);
+			item3int.setVisible(false);
+		}
+	} else if (inv == false) {
+		movementOn = false;
+		if (invrow == 1) {
+			item1.setVisible(true);
+			item2.setVisible(true);
+			item1.anims.play('grass', true);
+			item2.anims.play('dirt', true);
+			item3.anims.play('stone', true);
+			item2int.text = stone;
+			item1int.setVisible(true);
+			item3int.setVisible(true);
+		} else if (invrow == 2) {
+			item1.setVisible(false);
+			item2.setVisible(false);
+			item3.anims.play('wood', true);
+			item2int.text = wood;
+			item1int.setVisible(false);
+			item3int.setVisible(false);
+		}
+		chest.setVisible(true);
 	}
 }
