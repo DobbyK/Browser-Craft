@@ -39,9 +39,9 @@ function create() {
 	grassHeld = false;
 	click = 1;
 	hp = 100;
-	grass1 = 0;
-	dirt1 = 0;
-	stone1 = 0;
+	chestgrass = 0;
+	chestdirt = 0;
+	cheststone = 0;
 	invrow = 1;
 	inv = true;
 	chestrow = 1;
@@ -90,6 +90,9 @@ function create() {
 	chestitem1 = this.add.sprite(player.x, player.y, 'mini-tiles');
 	chestitem2 = this.add.sprite(player.x - 100, player.y, 'mini-tiles');
 	chestitem3 = this.add.sprite(player.x + 100, player.y, 'mini-tiles');
+	chestitem1int = this.add.text(player.x, player.y + 200, chestgrass);
+	chestitem2int = this.add.text(player.x + 160, player.y + 200, chestdirt);
+	chestitem3int = this.add.text(player.x - 160, player.y + 200, cheststone);
 	chestitem1.setVisible(false);
 	chestitem2.setVisible(false);
 	chestitem3.setVisible(false);
@@ -455,7 +458,13 @@ function update() {
 	chestitem3.x = player.x + 55;
 	chestitem1.y = player.y - 55;
 	chestitem2.y = player.y - 55;
-	chestitem3.y = player.y- 55;
+	chestitem3.y = player.y - 55;
+	chestitem1int.x = player.x - 55;
+	chestitem2int.x = player.x - 175;
+	chestitem3int.x = player.x + 55;
+	chestitem1int.y = player.y - 55;
+	chestitem2int.y = player.y - 55;
+	chestitem3int.y = player.y - 55;
 	if (hp == 100) {
 		hpbar.anims.play('100%', true);
 	} else if (hp > 89) {
@@ -492,6 +501,9 @@ function update() {
 		alert('You are dead');
 	}
 	if (inv == true) {
+		chestitem1int.setVisible(false);
+		chestitem2int.setVisible(false);
+		chestitem3int.setVisible(false);
 		chest.setVisible(false);
 		movementOn = true;
 		chestitem1.setVisible(false);
@@ -517,6 +529,9 @@ function update() {
 	} else if (inv == false) {
 		movementOn = false;
 		player.setVelocityX(0);
+		chestitem1int.setVisible(true);
+		chestitem2int.setVisible(true);
+		chestitem3int.setVisible(true);
 		if (invrow == 1) {
 			item1.setVisible(true);
 			item2.setVisible(true);
